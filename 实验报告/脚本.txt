@@ -1,0 +1,11 @@
+./configure --enable-depend --enable-cassert --enable-debug CFLAGS="-O0" --prefix=$HOME/pgsql
+$HOME/pgsql/bin/initdb -D $HOME/pgsql/data --locale=C
+vim $HOME/pgsql/data/postgresql.conf
+$HOME/pgsql/bin/pg_ctl -D $HOME/pgsql/data -l logfile start
+$HOME/pgsql/bin/psql -p 5432 postgres -c 'CREATE DATABASE similarity;'
+$HOME/pgsql/bin/psql -p 5432 -d similarity -f $HOME/postgresql/similarity_data.sql
+$HOME/pgsql/bin/psql similarity
+\timing
+
+
+$HOME/pgsql/bin/pg_ctl -D $HOME/pgsql/data stop
